@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SpinnerFullPage from "./components/spinner/SpinnerFullPage";
 import PageNotFound from "./pages/not-found/PageNotFound";
+import { AuthProvider } from "./contexts/FakeAuthContext";
 
 const Homepage = lazy(() => import("./pages/home-page/Homepage"));
 const Product = lazy(() => import("./pages/product/Product"));
@@ -10,7 +11,7 @@ const Login = lazy(() => import("./pages/login/Login"));
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <BrowserRouter>
         <Suspense fallback={<SpinnerFullPage />}>
           <Routes>
@@ -22,7 +23,7 @@ function App() {
           </Routes>
         </Suspense>
       </BrowserRouter>
-    </>
+    </AuthProvider>
   );
 }
 
