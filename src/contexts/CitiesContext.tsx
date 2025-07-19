@@ -9,35 +9,36 @@ import {
 
 const BASE_URL = "http://localhost:9000";
 
-type City = {
+type CityType = {
   id: number;
-  name: string;
-  // Add other city properties as needed
-  [key: string]: unknown;
+  cityName: string;
+  emoji: string;
+  date: string | number | Date;
+  position: { lat: number; lng: number };
 };
 
 type State = {
-  cities: City[];
+  cities: CityType[];
   isLoading: boolean;
-  currentCity: City | object;
+  currentCity: CityType | object;
   error: string;
 };
 
 type Action =
   | { type: "loading" }
-  | { type: "cities/loaded"; payload: City[] }
-  | { type: "city/loaded"; payload: City }
-  | { type: "city/created"; payload: City }
+  | { type: "cities/loaded"; payload: CityType[] }
+  | { type: "city/loaded"; payload: CityType }
+  | { type: "city/created"; payload: CityType }
   | { type: "city/deleted"; payload: number }
   | { type: "rejected"; payload: string };
 
 type CitiesContextType = {
-  cities: City[];
+  cities: CityType[];
   isLoading: boolean;
-  currentCity: City | object;
+  currentCity: CityType | object;
   error: string;
   getCity: (id: number) => Promise<void>;
-  createCity: (newCity: Partial<City>) => Promise<void>;
+  createCity: (newCity: Partial<CityType>) => Promise<void>;
   deleteCity: (id: number) => Promise<void>;
 };
 
@@ -113,7 +114,7 @@ function CitiesProvider({ children }: { children: ReactNode }) {
 
   const getCity = useCallback(
     async function getCity(id: number) {
-      if (Number(id) === (currentCity as City).id) return;
+      if (Number(id) === (currentCity as CityType).id) return;
 
       dispatch({ type: "loading" });
 
@@ -131,7 +132,7 @@ function CitiesProvider({ children }: { children: ReactNode }) {
     [currentCity]
   );
 
-  async function createCity(newCity: Partial<City>) {
+  async function createCity(newCity: Partial<CityType>) {
     dispatch({ type: "loading" });
 
     try {
@@ -196,3 +197,4 @@ function useCities() {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { CitiesProvider, useCities };
+export type { CityType  };

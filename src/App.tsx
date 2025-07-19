@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import SpinnerFullPage from "./components/spinner/SpinnerFullPage";
 import { AuthProvider } from "./contexts/FakeAuthContext";
 import PageNotFound from "./pages/not-found/PageNotFound";
@@ -11,6 +11,7 @@ const Product = lazy(() => import("./pages/product/Product"));
 const Pricing = lazy(() => import("./pages/pricing/Pricing"));
 const Login = lazy(() => import("./pages/login/Login"));
 const AppLayout = lazy(() => import("./pages/app-layout/AppLayout"));
+const CityList = lazy(() => import("./pages/city-list/CityList"));
 
 function App() {
   return (
@@ -31,7 +32,9 @@ function App() {
                   </ProtectedRoute>
                 }
               >
-                <Route index element={<>Protected</>} />
+                <Route index element={<Navigate replace to="cities" />} />
+                <Route path="cities" element={<CityList />} />
+
               </Route>
               <Route path="*" element={<PageNotFound />} />
             </Routes>
