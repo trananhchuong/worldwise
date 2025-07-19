@@ -1,8 +1,9 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SpinnerFullPage from "./components/spinner/SpinnerFullPage";
-import PageNotFound from "./pages/not-found/PageNotFound";
 import { AuthProvider } from "./contexts/FakeAuthContext";
+import PageNotFound from "./pages/not-found/PageNotFound";
+import ProtectedRoute from "./pages/protected/ProtectedRoute";
 
 const Homepage = lazy(() => import("./pages/home-page/Homepage"));
 const Product = lazy(() => import("./pages/product/Product"));
@@ -17,8 +18,15 @@ function App() {
           <Routes>
             <Route index element={<Homepage />} />
             <Route path="product" element={<Product />} />
-            <Route path="pricing" element={<Pricing/>} />
-            <Route path="login" element={<Login/>} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="login" element={<Login />} />
+
+            <Route
+              path="app"
+              element={<ProtectedRoute>AppLayout</ProtectedRoute>}
+            >
+              <Route index element={<>Protected</>} />
+            </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Suspense>
