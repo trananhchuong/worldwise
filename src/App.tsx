@@ -4,6 +4,7 @@ import SpinnerFullPage from "./components/spinner/SpinnerFullPage";
 import { AuthProvider } from "./contexts/FakeAuthContext";
 import PageNotFound from "./pages/not-found/PageNotFound";
 import ProtectedRoute from "./pages/protected/ProtectedRoute";
+import { CitiesProvider } from "./contexts/CitiesContext";
 
 const Homepage = lazy(() => import("./pages/home-page/Homepage"));
 const Product = lazy(() => import("./pages/product/Product"));
@@ -14,28 +15,29 @@ const AppLayout = lazy(() => import("./pages/app-layout/AppLayout"));
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Suspense fallback={<SpinnerFullPage />}>
-          <Routes>
-            <Route index element={<Homepage />} />
-            <Route path="product" element={<Product />} />
-            <Route path="pricing" element={<Pricing />} />
-            <Route path="login" element={<Login />} />
-
-            <Route
-              path="app"
-              element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<>Protected</>} />
-            </Route>
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+      <CitiesProvider>
+        <BrowserRouter>
+          <Suspense fallback={<SpinnerFullPage />}>
+            <Routes>
+              <Route index element={<Homepage />} />
+              <Route path="product" element={<Product />} />
+              <Route path="pricing" element={<Pricing />} />
+              <Route path="login" element={<Login />} />
+              <Route
+                path="app"
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<>Protected</>} />
+              </Route>
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </CitiesProvider>
     </AuthProvider>
   );
 }
