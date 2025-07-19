@@ -6,6 +6,7 @@ import PageNotFound from "./pages/not-found/PageNotFound";
 const Homepage = lazy(() => import("./pages/home-page/Homepage"));
 const Product = lazy(() => import("./pages/product/Product"));
 const Pricing = lazy(() => import("./pages/pricing/Pricing"));
+const Login = lazy(() => import("./pages/login/Login"));
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
             <Route index element={<Homepage />} />
             <Route path="product" element={<Product />} />
             <Route path="pricing" element={<Pricing/>} />
-            <Route path="login" element={<>Login</>} />
+            <Route path="login" element={<Login/>} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Suspense>
