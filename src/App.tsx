@@ -1,10 +1,11 @@
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SpinnerFullPage from "./components/spinner/SpinnerFullPage";
-import Homepage from "./pages/home-page/Homepage";
 import PageNotFound from "./pages/not-found/PageNotFound";
-import Product from "./pages/product/Product";
-import Pricing from "./pages/pricing/Pricing";
+
+const Homepage = lazy(() => import("./pages/home-page/Homepage"));
+const Product = lazy(() => import("./pages/product/Product"));
+const Pricing = lazy(() => import("./pages/pricing/Pricing"));
 
 function App() {
   return (
