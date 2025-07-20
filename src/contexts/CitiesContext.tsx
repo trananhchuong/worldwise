@@ -16,6 +16,7 @@ type CityType = {
   date: string | number | Date;
   position: { lat: number; lng: number };
   notes?: string;
+  country: string;
 };
 
 type State = {
