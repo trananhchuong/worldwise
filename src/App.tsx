@@ -5,6 +5,9 @@ import { AuthProvider } from "./contexts/FakeAuthContext";
 import PageNotFound from "./pages/not-found/PageNotFound";
 import ProtectedRoute from "./pages/protected/ProtectedRoute";
 import { CitiesProvider } from "./contexts/CitiesContext";
+import CountryList from "./components/country-list/CountryList";
+import City from "./components/city/City";
+import Form from "./components/form/Form";
 
 const Homepage = lazy(() => import("./pages/home-page/Homepage"));
 const Product = lazy(() => import("./pages/product/Product"));
@@ -34,6 +37,9 @@ function App() {
               >
                 <Route index element={<Navigate replace to="cities" />} />
                 <Route path="cities" element={<CityList />} />
+                <Route path="cities/:id" element={<City />} />
+                <Route path="countries" element={<CountryList />} />
+                <Route path="form" element={<Form />} />
 
               </Route>
               <Route path="*" element={<PageNotFound />} />

@@ -15,6 +15,7 @@ type CityType = {
   emoji: string;
   date: string | number | Date;
   position: { lat: number; lng: number };
+  notes?: string;
 };
 
 type State = {
@@ -35,7 +36,8 @@ type Action =
 type CitiesContextType = {
   cities: CityType[];
   isLoading: boolean;
-  currentCity: CityType | object;
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  currentCity: CityType | {};
   error: string;
   getCity: (id: number) => Promise<void>;
   createCity: (newCity: Partial<CityType>) => Promise<void>;
